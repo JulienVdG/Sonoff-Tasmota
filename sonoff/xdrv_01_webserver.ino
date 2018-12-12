@@ -1981,16 +1981,8 @@ int WebSend(char *buffer)
 //AddLog(LOG_LEVEL_DEBUG);
 
         client.print(url.c_str());
-//        String rsp = "";
-        while (client.connected())
-        {
-          if (client.available()) {
-            char c = client.read();
-//            rsp += c;
-          }
-        }
-//        snprintf_P(log_data, sizeof(log_data), PSTR("DBG: Resp |%s|"), rsp.c_str());
-//        AddLog(LOG_LEVEL_DEBUG);
+        while (client.connected() && !client.available());
+        client.flush();
         client.stop();
         status = 0;                           // No error - Done
       } else {
